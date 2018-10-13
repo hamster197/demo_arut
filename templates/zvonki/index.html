@@ -1,0 +1,237 @@
+{% extends 'crm/main.html' %}
+{% block content %}
+
+    <div class="row">
+      <div class="col s10">
+
+
+  <div class="row">
+    <div class="col s12">
+      <div class="card ">
+        <div class="card-content ">
+  <div class="row">
+    <div class="col s12">
+      <ul class="tabs">
+        <li class="tab col s2"><a class="active" href="#test6">Новые</a></li>
+        <li class="tab col s2"><a href="#test1">Перезвонить <span class="new badge" data-badge-caption="">{{ tpcount }}</span></a></li>
+          <li class="tab col s2"><a href="#test2">Недозвонился</a></li>
+        <li class="tab col s2"><a href="#test3">В работе </a></li>
+        <li class="tab col s2"><a href="#test4">Архив</a></li>
+        <li class="tab col s2"><a href="#test5">В общем доступе</a></li>
+      </ul>
+    </div>
+<div id="test6" class="col s12">
+
+    <form method="post" class="post-form" xmlns="http://www.w3.org/1999/html">{{ tFAllForm.management_form }}
+                    {% csrf_token %}
+                         {% for form in tFAllForm %}
+    <div class="row">
+         <div class="col s12">
+            <div class="card">
+                <div class="card-content">
+
+    <div class="row">
+      <div class="col s2"><strong>Тел.1  :</strong>{{ form.tel }}</div>
+      <div class="col s2"><strong>Имя клиента:</strong></br>{{ form.client_name }}</div>
+      <div class="col s2"><strong>Что ищет:</strong>{{ form.subj }}</div>
+      <div class="col s2"><strong>Цена:</strong>{{ form.cena }}</div>
+      <div class="col s2"><strong>Статус:</strong>{{ form.status_zvonka }}</div>
+
+      <div class="col s2"><strong>Когда перезвонить:</strong>{{ form.prezvonit }}</div>
+        <div class="row">
+            <div class="col s10"><strong>Коментарий:</strong>{{ form.coment }}</div>
+           <div class="col s2"><button type="submit" name="_submit" class="btn">Сохранить</button></div>
+        </div>
+    </div>
+            </div>
+
+            </div>
+         </div>
+     </div>
+                        {% endfor %}
+
+</form>
+
+{{ form.id }}
+    <form method="post" class="post-form" xmlns="http://www.w3.org/1999/html">
+                    {% csrf_token %}
+
+                         {% for form in tAllForm.forms %}
+
+    <div class="row">
+         <div class="col s12">
+            <div class="card">
+                <div class="card-content">
+
+    <div class="row">
+      <div class="col s2"><strong>Тел.  :</strong></br></br><b>{{ form.instance.tel }}</b></div>
+      <div class="col s2"><strong>Имя клиента:</strong></br><b>{{ form.client_name }}<b></div>
+      <div class="col s2"><strong>Что ищет:</strong>{{ form.subj }}</div>
+      <div class="col s2"><strong>Цена:</strong>{{ form.cena }}</div>
+      <div class="col s2"><strong>Статус:</strong>{{ form.status_zvonka }}</div>
+
+      <div class="col s2"><strong>Когда перезвонить:</strong>{{ form.prezvonit }}</div>
+        <div class="row">
+            <div class="col s10"><strong>Коментарий:</strong>{{ form.coment }}</div>
+           <div class="col s2"><button type="submit" name="_submit" class="btn">Сохранить</button></div>
+        </div>
+    </div>
+            </div>
+
+            </div>
+         </div>
+     </div>
+                        {% endfor %}
+
+</form>
+</div>
+    <div id="test1" class="col s12">
+  <table class="striped">
+        <thead>
+          <tr>
+              <th><strong>Перезвонить в:</strong></th>
+              <th><strong>Имя:</strong></th>
+              <th><strong>Телефон:</strong></th>
+              <th><strong>Что ищет:</strong></th>
+              <th><strong>Бюджет:</strong></th>
+          </tr>
+        </thead>
+
+        <tbody>
+        {%  for perezv_call in t_per_cl %}
+          <tr>
+            <td><a href="{% url 'zvn:edit' idd=perezv_call.pk %}">{{ perezv_call.prezvonit }}</a></td>
+            <td>{{ perezv_call.client_name }}</td>
+            <td>{{ perezv_call.tel }}</td>
+            <td>{{ perezv_call.subj }}</td>
+            <td>{{ perezv_call.cena }}</td>
+          </tr>
+         {%  endfor %}
+        </tbody>
+      </table>
+
+
+    </div>
+    <div id="test2" class="col s12">
+
+    <table class="striped">
+        <thead>
+          <tr>
+              <th><strong>Перезвонить в:</strong></th>
+              <th><strong>Имя:</strong></th>
+              <th><strong>Телефон:</strong></th>
+              <th><strong>Что ищет:</strong></th>
+              <th><strong>Бюджет:</strong></th>
+          </tr>
+        </thead>
+
+        <tbody>
+        {%  for nd_call in t_nd_cl %}
+          <tr>
+            <td><a href="{% url 'zvn:edit' idd=nd_call.pk %}">{{ nd_call.prezvonit }}</a></td>
+            <td>{{ nd_call.client_name }}</td>
+            <td>{{ nd_call.tel }}</td>
+            <td>{{ nd_call.subj }}</td>
+            <td>{{ nd_call.cena }}</td>
+          </tr>
+         {%  endfor %}
+        </tbody>
+      </table>
+
+    </div>
+    <div id="test3" class="col s12">
+
+ <table class="striped">
+        <thead>
+          <tr>
+              <th><strong>Перезвонить в:</strong></th>
+              <th><strong>Имя:</strong></th>
+              <th><strong>Телефон:</strong></th>
+              <th><strong>Что ищет:</strong></th>
+              <th><strong>Бюджет:</strong></th>
+          </tr>
+        </thead>
+
+        <tbody>
+        {%  for work_call in t_wk_cl %}
+          <tr>
+            <td><a href="{% url 'zvn:edit' idd=work_call.pk %}">{{ work_call.prezvonit }}</a></td>
+            <td>{{ work_call.client_name }}</td>
+            <td>{{ work_call.tel }}</td>
+            <td>{{ work_call.subj }}</td>
+            <td>{{ work_call.cena }}</td>
+          </tr>
+         {%  endfor %}
+        </tbody>
+      </table>
+
+    </div>
+    <div id="test4" class="col s12">
+
+     <table class="striped">
+        <thead>
+          <tr>
+              <th><strong>Перезвонить в:</strong></th>
+              <th><strong>Имя:</strong></th>
+              <th><strong>Телефон:</strong></th>
+              <th><strong>Что ищет:</strong></th>
+              <th><strong>Бюджет:</strong></th>
+          </tr>
+        </thead>
+
+        <tbody>
+        {%  for arh_call in t_arh_cl %}
+          <tr>
+            <td><a href="{% url 'zvn:edit' idd=arh_call.pk %}">{{ arh_call.prezvonit }}</a></td>
+            <td>{{ arh_call.client_name }}</td>
+            <td>{{ arh_call.tel }}</td>
+            <td>{{ arh_call.subj }}</td>
+            <td>{{ arh_call.cena }}</td>
+          </tr>
+         {%  endfor %}
+        </tbody>
+      </table>
+
+    </div>
+    <div id="test5" class="col s12">
+
+     <table class="striped">
+        <thead>
+          <tr>
+              <th><strong>Перезвонить в:</strong></th>
+              <th><strong>Имя:</strong></th>
+              <th><strong>Телефон:</strong></th>
+              <th><strong>Что ищет:</strong></th>
+              <th><strong>Бюджет:</strong></th>
+          </tr>
+        </thead>
+
+        <tbody>
+        {%  for all_call in t_all_cl %}
+          <tr>
+            <td><a href="{% url 'zvn:edit' idd=all_call.pk %}">{{ all_call.prezvonit }}</a></td>
+            <td>{{ all_call.client_name }}</td>
+            <td>{{ all_call.tel }}</td>
+            <td>{{ all_call.subj }}</td>
+            <td>{{ all_call.cena }}</td>
+          </tr>
+         {%  endfor %}
+        </tbody>
+      </table>
+
+    </div>
+  </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+</div>
+
+
+
+
+{% load material_form %}
+{% endblock %}
